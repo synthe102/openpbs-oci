@@ -18,4 +18,4 @@ Based on Rockylinux 8.
 
 ## TODO
 
-- [ ] allow to disable pbs.conf edit on start
+- [x] allow to disable pbs.conf edit on start
