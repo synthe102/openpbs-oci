@@ -4,6 +4,7 @@ ARG S6_OVERLAY_VERSION=3.2.0.2
 
 RUN dnf install -y epel-release \
   && crb enable
+
 RUN dnf install -y gcc make rpm-build libtool hwloc-devel libX11-devel libXt-devel libedit-devel libical-devel ncurses-devel perl postgresql-devel postgresql-contrib python3-devel tcl-devel tk-devel swig expat-devel openssl-devel libXext libXft autoconf automake gcc-c++ cjson-devel git wget dnsutils vim procps xz openssh-server
 
 RUN dnf install -y expat libedit postgresql-server postgresql-contrib python3 \
