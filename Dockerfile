@@ -1,11 +1,18 @@
 FROM rockylinux:8
 
+ARG S6_OVERLAY_VERSION=3.2.0.2
+
 RUN dnf install -y epel-release \
   && crb enable
-RUN dnf install -y gcc make rpm-build libtool hwloc-devel libX11-devel libXt-devel libedit-devel libical-devel ncurses-devel perl postgresql-devel postgresql-contrib python3-devel tcl-devel tk-devel swig expat-devel openssl-devel libXext libXft autoconf automake gcc-c++ cjson-devel git wget dnsutils
+RUN dnf install -y gcc make rpm-build libtool hwloc-devel libX11-devel libXt-devel libedit-devel libical-devel ncurses-devel perl postgresql-devel postgresql-contrib python3-devel tcl-devel tk-devel swig expat-devel openssl-devel libXext libXft autoconf automake gcc-c++ cjson-devel git wget dnsutils vim procps xz openssh-server
 
 RUN dnf install -y expat libedit postgresql-server postgresql-contrib python3 \
   sendmail sudo tcl tk libical chkconfig cjson
+
+ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
+RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz
+ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-x86_64.tar.xz /tmp
+RUN tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz
 
 RUN adduser pbs \
   && usermod -aG wheel pbs \
@@ -34,4 +41,6 @@ RUN sudo chmod 4755 /opt/pbs/sbin/pbs_iff /opt/pbs/sbin/pbs_rcp
 
 COPY start.sh .
 
-CMD [ "./start.sh" ]
+ENTRYPOINT ["/init"]
+
+CMD ["./start.sh"]
