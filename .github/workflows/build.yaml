@@ -5,6 +5,9 @@ on:
     tags:
       - '*'
   pull_request:
+    branches:
+      - '**'
+      - '!release-please--branches--main'
   workflow_dispatch:
 
 permissions:
