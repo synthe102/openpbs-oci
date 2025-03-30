@@ -2,6 +2,8 @@ FROM rockylinux:8
 
 ARG S6_OVERLAY_VERSION=3.2.0.2
 
+ARG OPENPBS_VERSION=23.06.06
+
 RUN dnf install -y epel-release \
   && crb enable
 
@@ -23,10 +25,10 @@ USER pbs
 
 WORKDIR /build
 
-RUN wget https://github.com/openpbs/openpbs/archive/refs/tags/v23.06.06.tar.gz \
-  && tar -xpvf v23.06.06.tar.gz
+RUN wget https://github.com/openpbs/openpbs/archive/refs/tags/v${OPENPBS_VERSION}.tar.gz \
+  && tar -xpvf v${OPENPBS_VERSION}.tar.gz
 
-WORKDIR /build/openpbs-23.06.06
+WORKDIR /build/openpbs-${OPENPBS_VERSION}
 
 RUN ./autogen.sh
 
