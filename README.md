@@ -3,7 +3,8 @@
 Allows to run Openpbs components as docker containers.
 
 > [!WARNING]
-> Highly experimental, edits /etc/pbs.conf on start.
+> Highly experimental
+> You need to provide your own pbs.conf and mount it at /etc/pbs.conf
 
 ## Quickstart
 
@@ -15,7 +16,4 @@ docker run ghcr.io/synthe102/openpbs
 ## Additional info
 
 Based on Rockylinux 8.
-
-## TODO
-
-- [x] allow to disable pbs.conf edit on start
+Runs S6 Overlay to start additional services.
