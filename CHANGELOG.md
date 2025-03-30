@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.2](https://github.com/synthe102/openpbs-oci/compare/v0.0.1...v0.0.2) (2025-03-30)
+
+
+### Features
+
+* pass OPENPBS_VERSION as docker ARG ([#7](https://github.com/synthe102/openpbs-oci/issues/7)) ([86df7ad](https://github.com/synthe102/openpbs-oci/commit/86df7ad78e890b74a6ea2789af689de3b52e91c7))
+* remove /etc/pbs.conf edit ([9551f74](https://github.com/synthe102/openpbs-oci/commit/9551f744117a630756f4df4ba22d638e0364eeac))
+
 ## 0.0.1 (2025-03-30)
 
 
