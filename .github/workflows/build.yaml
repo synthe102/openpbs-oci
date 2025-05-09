@@ -21,7 +21,7 @@ env:
 
 jobs:
   docker:
-    runs-on:  gha-runner-synthe102-openpbs-oci 
+    runs-on: gha-runner-synthe102-openpbs-oci
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
