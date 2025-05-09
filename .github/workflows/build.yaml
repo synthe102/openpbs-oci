@@ -9,6 +9,10 @@ on:
       - 'release-please--branches--main'
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
   packages: write
@@ -21,10 +25,13 @@ env:
 
 jobs:
   docker:
-    runs-on: self-hosted-cpu
+    runs-on: gha-runner-synthe102-openpbs-oci
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+
+      - name: Fix sudo permissions on arm64 (https://github.com/docker/buildx/issues/1335#issuecomment-1343712346)
+        run: docker run --privileged multiarch/qemu-user-static:latest --reset -p yes --credential yes
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -47,6 +54,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: |
